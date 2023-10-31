@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="board.board">
+    <select id="countAllBoard" parameterType="hmap" resultType="int">
+        select count(*)
+          from (select b.*
+                  from board b)c
+
+    </select>
+    <select id="fetchBoardList" parameterType="hmap" resultType="hmap">
+        select b.*,
+               u.name,
+               u.profile
+          from (select *
+                  from board
+                  where 1 = 1
+                  <if test="next_token != null and next_token != '' and next_token != 'undefined'">
+                    and board_no <![CDATA[ < ]]> #{next_token}
+                  </if>
+                  order by board_no desc limit 20)b
+          join `user` u on b.author_no = u.user_no
+    </select>
+
+
+
+    <select id="countMyBoard" parameterType="hmap" resultType="int">
+        select count(*)
+          from board
+         where author_no = #{user_no}
+    </select>
+    <select id="fetchMyBoardList" parameterType="hmap" resultType="hmap">
+        select b.*,
+               u.name,
+               u.profile
+          from (select *
+                  from board
+                 order by board_no desc)b
+          join `user` u on b.author_no = u.user_no
+         where u.user_no = #{user_no}
+    </select>
+</mapper>
