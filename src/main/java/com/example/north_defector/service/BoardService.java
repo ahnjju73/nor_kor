@@ -41,10 +41,16 @@ public class BoardService extends Workspace {
 //        board.setBoardTypes(BoardTypes.getType(boardDto.getBoardType()));
         board.setCommDisabled(boardDto.getCommentDisabled());
         String content = boardDto.getContent();
+//        if(content.indexOf("image") >= 0){
+//            int start = content.indexOf("image") + 8;
+//            int end = content.indexOf("\"", content.indexOf("image:") + 3) - 1;
+////[{"insert":"Feawfewaefawe"},{"insert":{"image":"https://nearu-test-storage-queue.s3.ap-northeast-2.amazonaws.com/ahnjju73%40gmail.com/ac5364af-768f-4add-82b5-560892d033d4image_picker_E0BBD170-9507-4827-92F9-EAC55D443A11-47362-00000326715FB1CD.jpg"}},{"insert":"\n"}]
+//            board.setThumbnail(content.substring(start, end));
+//        }
         if(content.indexOf("image") >= 0){
-            int start = content.indexOf("image") + 8;
-            int end = content.indexOf("\"", content.indexOf("image:") + 3) - 1;
-//[{"insert":"Feawfewaefawe"},{"insert":{"image":"https://nearu-test-storage-queue.s3.ap-northeast-2.amazonaws.com/ahnjju73%40gmail.com/ac5364af-768f-4add-82b5-560892d033d4image_picker_E0BBD170-9507-4827-92F9-EAC55D443A11-47362-00000326715FB1CD.jpg"}},{"insert":"\n"}]
+            //"image":"
+            int start = content.indexOf("\"image\":\"") + 9;
+            int end = content.indexOf("}", content.indexOf("\"image\":") + 9) - 1;
             board.setThumbnail(content.substring(start, end));
         }
         boardRepository.save(board);
