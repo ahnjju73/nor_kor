@@ -6,10 +6,7 @@ import com.example.north_defector.domain.UserPw;
 import com.example.north_defector.domain.UserSession;
 import com.example.north_defector.object.OriginObject;
 import com.example.north_defector.object.SessionRequest;
-import com.example.north_defector.object.request.EmailCodeRequest;
-import com.example.north_defector.object.request.EmailRequest;
-import com.example.north_defector.object.request.JoinRequest;
-import com.example.north_defector.object.request.LoginEmailRequest;
+import com.example.north_defector.object.request.*;
 import com.example.north_defector.object.response.SessionResponse;
 import com.example.north_defector.repository.UserPwRepository;
 import com.example.north_defector.repository.UserRepository;
@@ -141,6 +138,16 @@ public class SignController extends OriginObject {
         UserSession userSession = signService.setSession(users);
         SessionResponse sessionResponse = signService.setResponseData(users, userSession.getSessionKey());
         return sessionResponse;
+    }
+
+    @Transactional
+    @SessionMapper
+    @PutMapping("/change-profile")
+    public void changeProfile(SessionRequest request){
+        EditProfileReq editProfileReq = map(request.getParam(), EditProfileReq.class);
+        User user = request.getSession();
+        user.setProfile(editProfileReq.getProfile());
+        usersRepository.save(user);
     }
 
 }

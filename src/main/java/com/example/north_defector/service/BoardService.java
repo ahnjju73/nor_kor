@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -84,6 +86,7 @@ public class BoardService extends Workspace {
         Board board = boardRepository.findByBoardNo(boardNo);
         List<Comment> comments = getComments(boardNo);
         Integer numLikes = boardLikeRepository.countAllByBoardNo(boardNo);
+//        Collections.reverse(comments);
         response.setBoard(board);
         response.setComments(comments);
         response.setNumLike(numLikes);

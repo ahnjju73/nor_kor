@@ -63,10 +63,11 @@ public class SignService extends Workspace {
     public SessionResponse setResponseData(User user, String sessionKey){
         SessionResponse sessionResponseDto = new SessionResponse();
 //        sessionResponseDto.setUserId(user.getUserId());
-        sessionResponseDto.setUserName(user.getName());
+        sessionResponseDto.setName(user.getName());
         sessionResponseDto.setEmail(user.getEmail());
 //        sessionResponseDto.setUserStatusType(user.getUserStatusType());
         sessionResponseDto.setSessionKey(sessionKey);
+        sessionResponseDto.setProfile(user.getProfile());
         return sessionResponseDto;
     }
 

@@ -11,11 +11,14 @@ import lombok.Setter;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class SessionResponse extends OriginObject {
 
-    private String userName;
+    private Integer userNo;
+    private String name;
     private String email;
 //    private UserStatusTypes userStatusType;
 //    private String userStatusTypeCode;
+
     private String sessionKey;
+    private String profile;
 
 //    public void setUserStatusType(UserStatusTypes userStatusType) {
 //        this.userStatusType = userStatusType;
