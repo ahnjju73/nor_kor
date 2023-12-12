@@ -22,6 +22,7 @@
                   </if>
                   order by board_no desc limit 20)b
           join `user` u on b.author_no = u.user_no
+         order by b.board_no desc
     </select>
 
 
